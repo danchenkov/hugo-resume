@@ -6,7 +6,9 @@
     <p>{{ .Content }}</p>
     {{ range .Data.Pages.ByWeight }}
       {{ if ne .Type "markdown" }}
-        {{ partial (printf "%s%s" .Type "Summary") . }}
+        {{ if partialExists (printf "%s%s" .Type "Summary") }}
+          {{ partial (printf "%s%s" .Type "Summary") . }}
+        {{ end }}
       {{ end }}
     {{ end }}
     {{ range .Sections }}
@@ -14,7 +16,9 @@
         <p>{{ .Content }}</p>
         {{ range .Pages }}
           {{ if ne .Type "markdown" }}
-            {{ partial (printf "%s%s" .Type "Summary") . }}
+            {{ if partialExists (printf "%s%s" .Type "Summary") }}
+              {{ partial (printf "%s%s" .Type "Summary") . }}
+            {{ end }}
           {{ end }}
         {{ end }}
     {{ end }}
